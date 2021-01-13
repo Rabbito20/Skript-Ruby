@@ -23,10 +23,15 @@ path = '.\Test_fajlovi\test3_xlsx.xlsx'
 
 #convert(path)
 
-
+#   Citamo fajl
 a = read_file(path)
 
-print_mat(a)
+#   Stampanje elemenata tabele
+print_table(a)
+
+#   Pristup redu tabele
+#b = row(a, 4)
+#print "b is #{b}"
 
 
 

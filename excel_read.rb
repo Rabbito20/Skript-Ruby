@@ -66,7 +66,7 @@ def read_file(path)
         
     end
     puts "Done"
-    
+    #puts mat.size                                      #DEBUG
     return mat
     
 end
@@ -76,13 +76,27 @@ end
 #p xlsx
 #xlsx.info
 
-def print_mat(mat)
+def print_table(mat)
     mat.each do |el|
-        if el[1][3]
+        i = 1
+        if el == mat[0]
+            #puts " el #{mat[0]}"   #DEBUG
             puts el.join '  '
             #next                   #DEBUG
         else
-            puts el.join '                      ' 
+            puts el.join '              ' 
         end
     end
+end
+
+#   Vraca red i njegove elemente
+def row(mat, elem)
+    niz = []
+    mat[elem].each do |i|
+        niz.append(i.to_s)
+    end
+
+    #puts "Returning #{niz}"            #DEBUG
+
+    return niz
 end
