@@ -21,12 +21,12 @@ path = '.\Test_fajlovi\test3_xlsx.xlsx'
 #path = '.\Test_fajlovi\test2_xls.xls'
 
 
-
-
 #convert(path)
 
 
-a = read_file(path, save=true)
+a = read_file(path)
+
+print_mat(a)
 
 
 

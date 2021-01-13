@@ -1,26 +1,29 @@
 require 'roo'
 require 'roo-xls'
 require 'matrix'
+#require 'daru'
 
 
 #matrix = Matrix[[0, 1][2, 3]]
-#puts "Matrica #{matrix}"
-#puts "-----------------------"
+
 
 #   Pretvaramo xls u xlsx
+'''
 def convert(path)
     workbook = Roo::Spreadsheet.open path
     worksheets = workbook.sheets
 
-
 end
+'''
 
-def read_file(path, save=false)
+def read_file(path)
     
     workbook = Roo::Spreadsheet.open path
     workbook = Roo::Excelx.new(path, {:expand_merged_ranges => true})       #   Resenje za mergovane celije
     worksheets = workbook.sheets
     puts "Found #{worksheets.count}"
+
+    mat = []
 
     #   ws nam je iterable
     worksheets.each do |ws|
@@ -28,10 +31,10 @@ def read_file(path, save=false)
         num_rows = 0
         
         workbook.sheet(ws).each_row_streaming do |row|
+            
 
-            #puts row     #hmmmm
-            #puts '-----------'
-            #puts a.include? 'Roo::Excelx::Cell::Empty'
+            #puts row                                           #DEBUG
+            #puts a.include? 'Roo::Excelx::Cell::Empty'         #DEBUG
             
             #   Ako je celija prazna, onda sadrzi 'Roo::Excelx::Cell::Empty'
             #   Pa filtriramo preko toga
@@ -47,25 +50,39 @@ def read_file(path, save=false)
                 row_cells = row.map { |cell| cell.value }
                 num_rows += 1
                 
+                #   Dodajemo elemente u niz
+                mat.append(row_cells)
+
                 #   Za ispis
-                puts row_cells.join ' '
+                #puts row_cells.join '      '            #DEBUG
+                
+                #puts mat.join '\n'                      #DEBUG
+                #puts '-------------'                    #DEBUG
+
             end
         end
-        puts "Reading #{num_rows} rows"
+        puts "Reading #{num_rows} rows..."
         
-
-        #   Cuvanje fajla
-        if save != false
-            #TODO
-            
-            #ws.to_matrix
-        end
         
     end
     puts "Done"
+    
+    return mat
+    
 end
 
 #puts workbook.info
 
 #p xlsx
 #xlsx.info
+
+def print_mat(mat)
+    mat.each do |el|
+        if el[1][3]
+            puts el.join '  '
+            #next                   #DEBUG
+        else
+            puts el.join '                      ' 
+        end
+    end
+end
